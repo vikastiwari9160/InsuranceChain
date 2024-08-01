@@ -59,9 +59,7 @@
                     >
                     <td class="px-6 py-4 whitespace-nowrap">{claim.username}</td
                     >
-                    <td class="px-6 py-4 whitespace-nowrap"
-                        >{claim.claim_status}</td
-                    >
+                    <td class="px-6 py-4 whitespace-nowrap">{claim.status}</td>
                     <td class="px-6 py-4 whitespace-nowrap"
                         >{claim.createdAt.toString().split("GMT")[0]}</td
                     >

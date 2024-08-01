@@ -1,7 +1,9 @@
 import { createPool } from '@vercel/postgres'
 import { POSTGRES_URL } from '$env/static/private'
+import { redirect, type RequestEvent } from '@sveltejs/kit';
 
-export async function load({ locals }) {
+export async function load({ locals }: RequestEvent) {
+    if (!locals.authUser) throw redirect(302, '/Login');
     const db = createPool({ connectionString: POSTGRES_URL })
     if (!locals.authUser) {
         return { error: true, msg: "user not logged in" }
@@ -14,7 +16,7 @@ export async function load({ locals }) {
 }
 export const actions = {
 
-    update: async ({ request, locals }) => {
+    update: async ({ request, locals }: RequestEvent) => {
         const data = await request.formData();
         const db = createPool({ connectionString: POSTGRES_URL })
         const client = await db.connect();

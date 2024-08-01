@@ -8,7 +8,7 @@ const db = createPool({ connectionString: POSTGRES_URL })
 const client = await db.connect();
 
 
-export async function load({ locals }) {
+export async function load({ locals }: RequestEvent) {
     if (locals.authUser.issuperuser == "false") throw redirect(302, '/Dashboard');
     const { rows: claims } = await db.query(`SELECT * FROM claims`)
     for (let i = 0; i < claims.length; i++) {
@@ -46,7 +46,7 @@ export const actions = {
             ]
         };
         const payResponse = await neucron.pay.txSpend(options);
-        await client.sql`update claims set claim_status='Approved' where claim_id=${claim_id}`
+        await client.sql`update claims set status='Approved' where claim_id=${claim_id}`
         return { success: true, payment: payResponse.data.txid };
     },
     Reject: async ({ request }: RequestEvent) => {
@@ -57,7 +57,7 @@ export const actions = {
 
         if (!claim_id) { return { error: true, msg: "Something went wrong!" } }
 
-        await client.sql`update claims set claim_status='Rejected' where claim_id=${claim_id}`
+        await client.sql`update claims set status='Rejected' where claim_id=${claim_id}`
         return { success: true };
     }
 };

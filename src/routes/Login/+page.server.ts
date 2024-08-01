@@ -25,6 +25,9 @@ export const actions = {
         let token = await setuser(user);
         cookies.set('authtoken', token, { path: '/' });
         islogedin.set(true);
+        if (user.issuperuser) {
+            redirect(302, '/Claim_Applications');
+        }
         redirect(302, '/Dashboard');
     }
 };
