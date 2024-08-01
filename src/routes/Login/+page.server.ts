@@ -21,7 +21,6 @@ export const actions = {
         Select * from users where email = ${email} AND password=${password};
         `
         const user = users[0];
-        console.log(user);
         if (user == undefined) { return { error: true, msg: "User Not Found!" } }
         let token = await setuser(user);
         cookies.set('authtoken', token, { path: '/' });

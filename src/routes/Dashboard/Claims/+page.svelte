@@ -1,8 +1,8 @@
 <script lang="ts">
     import { isOverlayOpen } from "../../../store/overlayStore";
-    import Table from "$lib/Table_claims.svelte";
     import Overlay from "$lib/Overlay.svelte";
     export let data;
+    export let claims = data.claims;
     export let form;
 </script>
 
@@ -12,12 +12,108 @@
 
 {#if $isOverlayOpen}
     <Overlay>
-        <div class=" h-96 w-80"></div>
+        <div class=" h-80">
+            <p
+                class="px-6 py-3 text-left text-base font-medium text-black uppercase tracking-wider"
+            >
+                Claim Id : {form?.details?.claim_id}
+            </p>
+            <p
+                class="px-6 py-3 text-left text-base font-medium text-black uppercase tracking-wider"
+            >
+                Requested Amount :{form?.details?.amount}
+            </p>
+            <p
+                class="px-6 py-3 text-left text-base font-medium text-black uppercase tracking-wider"
+            >
+                Bill : {form?.details?.bill}
+            </p>
+            <p
+                class="px-6 py-3 text-left text-base font-medium text-black uppercase tracking-wider"
+            >
+                Description : {form?.details?.description}
+            </p>
+            <p
+                class="px-6 py-3 text-left text-base font-medium text-black uppercase tracking-wider"
+            >
+                Claim Status : {form?.details?.claim_status}
+            </p>
+            <p
+                class="px-6 py-3 text-left text-base font-medium text-black uppercase tracking-wider"
+            >
+                Created At : {form?.details?.createdAt
+                    .toString()
+                    .split("GMT")[0]}
+            </p>
+        </div>
     </Overlay>
 {/if}
 
-<Table claims={data.claims} />
-<!-- claimId, claimDetails, status, timestamp -->
+<div
+    class="mt-10 pt-10 w-full max-w-4xl p-5 mx-auto rounded-lg shadow-xl dark:bg-white/10 bg-white/30 ring-1 ring-gray-900/5 backdrop-blur-lg"
+>
+    <div class="flex items-center justify-between mb-4">
+        <div class="space-y-1">
+            <h2 class="text-xl font-semibold">List of Your Claims</h2>
+            <p class="text-sm text-gray-500">Fetched {claims.length} Claims</p>
+        </div>
+    </div>
+    <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-400">
+            <tr>
+                <th
+                    class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+                    >Claim Id</th
+                >
+                <th
+                    class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+                    >Status</th
+                >
+                <th
+                    class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+                    >Update History</th
+                >
+                <th
+                    class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+                    >Details</th
+                >
+            </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+            {#each claims as claim (claim.claim_id)}
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">{claim.claim_id}</td
+                    >
+                    <td class="px-6 py-4 whitespace-nowrap"
+                        >{claim.claim_status}</td
+                    >
+                    <td class="px-6 py-4 whitespace-nowrap"
+                        >{claim.createdAt.toString().split("GMT")[0]}</td
+                    >
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <form method="GET" action="?/view" class="inline-block">
+                            <input
+                                type="hidden"
+                                name="claim_id"
+                                value={claim.claim_id}
+                            />
+                            <button
+                                class=" bg-orange-500 hover:bg-blue-700 text-white font-bold px-2 py-1 rounded-xl"
+                                type="submit"
+                                on:click={() => {
+                                    isOverlayOpen.set(true);
+                                }}
+                            >
+                                View Details
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            {/each}
+        </tbody>
+    </table>
+</div>
+
 <div
     class="mt-10 pt-10 w-full max-w-5xl p-5 mx-auto rounded-lg shadow-xl dark:bg-white/10 bg-white/30 ring-1 ring-gray-900/5 backdrop-blur-lg"
 >

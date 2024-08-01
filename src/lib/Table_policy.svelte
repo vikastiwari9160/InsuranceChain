@@ -46,7 +46,7 @@
                     >
 
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <form method="GET" action="?/viewdetails">
+                        <form method="GET" action="?/view">
                             <input
                                 type="hidden"
                                 name="id"

@@ -4,14 +4,14 @@
 </script>
 
 <div
-    class="mt-10 pt-10 w-full max-w-5xl p-5 mx-auto rounded-lg shadow-xl dark:bg-white/10 bg-white/30 ring-1 ring-gray-900/5 backdrop-blur-lg"
+    class="mt-10 pt-10 w-full max-w-md p-5 mx-auto rounded-lg shadow-xl dark:bg-white/10 bg-white/30 ring-1 ring-gray-900/5 backdrop-blur-lg"
 >
     <form method="POST" action="?/update">
         <div
             class="flex -mx-5 mb-2;"
             style="display: flex; flex-direction:column"
         >
-            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+            <div class="w-full px-3 mb-6 md:mb-0">
                 <label for="username">Username:</label>
                 <input
                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -22,7 +22,7 @@
                 />
             </div>
 
-            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+            <div class="w-full px-3 mb-6 md:mb-0">
                 <label for="password">Password:</label>
                 <input
                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -33,7 +33,7 @@
                 />
             </div>
 
-            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+            <div class="w-full px-3 mb-6 md:mb-0">
                 <label for="paymail">Paymail id:</label>
                 <input
                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"

@@ -23,7 +23,6 @@ export const actions = {
         const password = data.get('password');
         const paymail = data.get('paymail');
         const id = locals.authUser.id;
-        console.log(name + "" + password + "" + paymail + "" + id)
         if (!name || !password || !paymail) {
             return { error: true, msg: "all fields are required!" }
         }

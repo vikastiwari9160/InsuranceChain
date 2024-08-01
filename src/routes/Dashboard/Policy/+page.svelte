@@ -12,7 +12,40 @@
 
 {#if $isOverlayOpen}
     <Overlay>
-        <div class=" h-96 w-80"></div>
+        <div class=" h-80">
+            <p
+                class="px-6 py-3 text-left text-base font-medium text-black uppercase tracking-wider"
+            >
+                Claim Id : {form?.details?.claim_id}
+            </p>
+            <p
+                class="px-6 py-3 text-left text-base font-medium text-black uppercase tracking-wider"
+            >
+                Requested Amount :{form?.details?.amount}
+            </p>
+            <p
+                class="px-6 py-3 text-left text-base font-medium text-black uppercase tracking-wider"
+            >
+                Bill : {form?.details?.bill}
+            </p>
+            <p
+                class="px-6 py-3 text-left text-base font-medium text-black uppercase tracking-wider"
+            >
+                Description : {form?.details?.description}
+            </p>
+            <p
+                class="px-6 py-3 text-left text-base font-medium text-black uppercase tracking-wider"
+            >
+                Claim Status : {form?.details?.claim_status}
+            </p>
+            <p
+                class="px-6 py-3 text-left text-base font-medium text-black uppercase tracking-wider"
+            >
+                Created At : {form?.details?.createdAt
+                    .toString()
+                    .split("GMT")[0]}
+            </p>
+        </div>
     </Overlay>
 {/if}
 

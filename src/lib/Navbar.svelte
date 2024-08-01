@@ -65,6 +65,20 @@
             >DashBoard</a
           >
         </li>
+        <li id="account">
+          <a
+            href="/AccountSettings"
+            class="block mt-1 py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0"
+            >Account Settings</a
+          >
+        </li>
+        <!-- <li id="logout">
+          <button
+            on:click={logout}
+            class="bg-orange-500 hover:bg-blue-700 text-white font-bold px-2 py-1 rounded-xl"
+            >Logout
+          </button>
+        </li> -->
       </ul>
     </div>
   </div>

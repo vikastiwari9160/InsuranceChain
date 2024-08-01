@@ -1,11 +1,14 @@
 import { createPool } from '@vercel/postgres'
 import { POSTGRES_URL } from '$env/static/private'
 import { redirect } from '@sveltejs/kit';
+import type { RequestEvent } from './$types';
+import { isOverlayOpen } from '../../../store/overlayStore';
 
+const db = createPool({ connectionString: POSTGRES_URL })
+const client = await db.connect();
 
 export async function load({ locals }) {
     if (!locals.authUser) throw redirect(302, '/Login');
-    const db = createPool({ connectionString: POSTGRES_URL })
     const user = locals.authUser;
     try {
         const { rows: claims } = await db.query(`SELECT * FROM claims where user_id= ${user.id}`)
@@ -22,8 +25,6 @@ export async function load({ locals }) {
 }
 
 async function seed() {
-    const db = createPool({ connectionString: POSTGRES_URL })
-    const client = await db.connect();
     const createTable = await client.sql`CREATE TABLE IF NOT EXISTS claims (
         claim_id INT PRIMARY KEY,
         user_id INT NOT NULL,
@@ -40,10 +41,8 @@ async function seed() {
 
 export const actions = {
 
-    create: async ({ request, locals }) => {
+    create: async ({ request, locals }: RequestEvent) => {
         const data = await request.formData();
-        const db = createPool({ connectionString: POSTGRES_URL })
-        const client = await db.connect();
 
         const claim_id = data.get('claim_id');
         const amount = data.get('amount');
@@ -61,8 +60,16 @@ export const actions = {
         ON CONFLICT (claim_id) DO NOTHING;
     `
         return { success: true };
-    }
+    },
+    view: async ({ request }: RequestEvent) => {
+        const data = await request.formData();
+        const claim_id = data.get('claim_id');
+        if (!claim_id) { return { error: true, msg: "Something went wrong!" } }
+        try {
+            const { rows: result } = await client.sql`Select * from claims where claim_id=${claim_id}`
+            return { details: result[0] };
+        } finally {
+            isOverlayOpen.set(true);
+        }
+    },
 };
-
-
-

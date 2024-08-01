@@ -37,7 +37,7 @@
       {#each claims as claim (claim.claim_id)}
         <tr>
           <td class="px-6 py-4 whitespace-nowrap">{claim.claim_id}</td>
-          <td class="px-6 py-4 whitespace-nowrap">{claim.status}</td>
+          <td class="px-6 py-4 whitespace-nowrap">{claim.claim_status}</td>
           <td class="px-6 py-4 whitespace-nowrap"
             >{claim.createdAt.toString().split("GMT")[0]}</td
           >

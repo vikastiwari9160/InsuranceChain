@@ -14,7 +14,7 @@
     }}
 >
     <div
-        class=" bg-white text-black rounded-md px-8 py-10 relative max-w-lg"
+        class=" bg-white text-black rounded-md px-8 py-10 relative max-w-xl"
         on:click|stopPropagation
     >
         <button

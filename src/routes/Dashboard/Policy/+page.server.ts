@@ -1,6 +1,7 @@
 import { createPool } from '@vercel/postgres'
 import { POSTGRES_URL } from '$env/static/private'
 import { redirect } from '@sveltejs/kit'
+import type { RequestEvent } from './$types';
 
 export async function load({ locals }) {
     if (!locals.authUser) throw redirect(302, '/Login');
@@ -38,7 +39,7 @@ async function seed() {
 }
 
 export const actions = {
-    create: async ({ request, locals }) => {
+    create: async ({ request, locals }: RequestEvent) => {
         const data = await request.formData();
         const db = createPool({ connectionString: POSTGRES_URL })
         const client = await db.connect();
@@ -54,7 +55,18 @@ export const actions = {
       ON CONFLICT (policy_id) DO NOTHING;
     `
         return { success: true };
-    }
+    },
+    view: async ({ request }: RequestEvent) => {
+        const data = await request.formData();
+        const claim_id = data.get('claim_id');
+        if (!claim_id) { return { error: true, msg: "Something went wrong!" } }
+        try {
+            const { rows: result } = await client.sql`Select * from claims where claim_id=${claim_id}`
+            return { details: result[0] };
+        } finally {
+            isOverlayOpen.set(true);
+        }
+    },
 };
 
 

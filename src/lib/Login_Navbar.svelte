@@ -1,7 +1,6 @@
 <script lang="ts">
     function logout() {
         deleteCookie("authToken");
-        localStorage.removeItem("authtoken");
     }
     function deleteCookie(name: string) {
         document.cookie =
