@@ -32,9 +32,9 @@
     </p>
     <div class="flex space-x-4 mt-8">
         <!-- <button on:click={scrollPage} class="px-4 py-2 bg-yellow-500 rounded-lg text-lg">Scroll a bit</button> -->
-        <button class="px-4 py-2 bg-green-700 rounded-lg text-lg"
-            >Get Started</button
-        >
+        <a href="/Login"><button class="px-4 py-2 bg-green-700 rounded-lg text-lg"
+            >Login</button
+        ></a>
     </div>
     <div
         class="flex flex-col items-center mt-12 animate-bounce cursor-pointer"
